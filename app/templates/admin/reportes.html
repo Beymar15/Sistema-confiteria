@@ -2,7 +2,6 @@
 {% block title %} Reportes de Catálogo · Dulce Explosion {% endblock %}
 
 {% block content %}
-<!-- Contenedor de la Barra Lateral Izquierda -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar" id="sidebar">
     <div class="sidebar-brand">
@@ -16,7 +15,6 @@
         <li>
             <a href="{{ url_for('admin.listar_usuarios') }}"><i class="bi bi-people-fill"></i> Clientes</a>
         </li>
-        <!-- Sección de Reportes Activa -->
         <li class="active">
             <a href="{{ url_for('admin.reportes') }}"><i class="bi bi-bar-chart-fill"></i> Reportes</a>
         </li>
@@ -31,7 +29,6 @@
     </ul>
 </nav>
 
-<!-- Contenido Principal del Módulo de Reportes -->
 <main class="main-content">
     <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 mt-3">
         <div>
@@ -41,7 +38,6 @@
         <button class="btn btn-brand btn-sm" onclick="cargarReportes()"><i class="bi bi-arrow-clockwise me-1"></i> Actualizar Catálogo</button>
     </div>
 
-    <!-- Fila de Tarjetas de Indicadores Corregidas -->
     <div class="row g-3 mb-4">
         <div class="col-md-4 col-6">
             <div class="card card-shadow p-3 bg-white h-100 text-center">
@@ -67,13 +63,11 @@
     </div>
 
     <div class="row g-4">
-        <!-- Tabla de Alertas de Inventario con Buscador -->
         <div class="col-lg-7">
             <div class="card card-shadow p-4 bg-white h-100">
                 <h5 class="section-title text-danger mb-1"><i class="bi bi-exclamation-triangle-fill me-2"></i>Verificación de Stock Crítico</h5>
                 <p class="text-muted small mb-3">Lista de artículos con 10 o menos existencias físicas en el almacén central.</p>
                 
-                <!-- Buscador para filtrar solicitado por el grupo -->
                 <div class="input-group mb-3">
                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
                     <input type="text" id="buscadorReporte" class="form-control border-start-0" placeholder="Buscar producto crítico para verificar..." oninput="cargarReportes()">
@@ -100,7 +94,6 @@
             </div>
         </div>
 
-        <!-- Resumen por Categorías -->
         <div class="col-lg-5">
             <div class="card card-shadow p-4 bg-white h-100">
                 <h5 class="section-title text-brand mb-1"><i class="bi bi-pie-chart-fill me-2"></i>Variedad por Categoría</h5>
@@ -121,20 +114,16 @@
 
 <script>
     function cargarReportes() {
-        // Capturar el valor escrito en la barra de búsqueda
         const busqueda = document.getElementById('buscadorReporte').value;
 
-        // Enviar la consulta dinámica al backend
         fetch(`/admin/api/reportes/estadisticas?q=${encodeURIComponent(busqueda)}`)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Cargar métricas limpias basadas únicamente en el Catálogo
                     document.getElementById('kpiTotalProductos').textContent = `${data.catalogo_kpis.total_productos} Productos`;
                     document.getElementById('kpiTotalStock').textContent = `${data.catalogo_kpis.total_stock_fisico} unidades`;
                     document.getElementById('kpiAlertas').textContent = data.total_alertas;
 
-                    // Cargar Tabla de Alertas de Stock Bajo
                     const tbody = document.getElementById('tablaStockBajo');
                     tbody.innerHTML = '';
                     if (data.alertas_stock.length === 0) {
@@ -153,7 +142,6 @@
                         });
                     }
 
-                    // Cargar Lista de Variedad por Categorías
                     const listaCat = document.getElementById('listaCategoriasEstadistica');
                     listaCat.innerHTML = '';
                     data.categorias_estadistica.forEach(c => {

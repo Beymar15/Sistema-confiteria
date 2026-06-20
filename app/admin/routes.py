@@ -406,21 +406,15 @@ def api_cambiar_password():
         db.session.rollback()
         return jsonify({"success": False, "message": f"Error al cambiar contraseña: {str(e)}"}), 500
 
-
-from sqlalchemy import func  # Asegúrate de que esta línea esté al inicio de tu routes.py
-
 @administrador_bp.route("/api/reportes/estadisticas")
 @login_required
 def api_reportes_estadisticas():
     """API JSON que genera métricas exclusivas del catálogo de manera ultra segura."""
     try:
-        # 1. Capturar el filtro de búsqueda del input text
         query_busqueda = request.args.get('q', '').strip()
 
-        # Alertas de Stock Crítico (10 o menos unidades)
         consulta_criticos = Producto.query.filter(Producto.stock <= 10)
         
-        # Filtrado dinámico por coincidencia de texto
         if query_busqueda:
             consulta_criticos = consulta_criticos.filter(Producto.producto.ilike(f"%{query_busqueda}%"))
             
@@ -428,7 +422,6 @@ def api_reportes_estadisticas():
         
         alertas_stock = []
         for p in criticos:
-            # Obtener el nombre de la categoría de forma segura sin romper el código
             nombre_cat = "General"
             if p.categoria:
                 nombre_cat = p.categoria.categoria
@@ -441,7 +434,6 @@ def api_reportes_estadisticas():
                 "categoria": nombre_cat
             })
 
-        # 2. Distribución de variedades por categoría
         categorias = Categoria.query.all()
         datos_categorias = []
         for c in categorias:
@@ -450,11 +442,9 @@ def api_reportes_estadisticas():
                 "total_productos": len(c.productos) if c.productos else 0
             })
 
-        # 3. Métricas reales del Catálogo (KPIs de Control)
         total_productos_sistema = Producto.query.count() or 0
         total_categorias_sistema = Categoria.query.count() or 0
         
-        # Cálculo manual de existencias físicas para que SQLite NO de error
         total_existencias_fisicas = 0
         todos_los_productos = Producto.query.all()
         for prod in todos_los_productos:

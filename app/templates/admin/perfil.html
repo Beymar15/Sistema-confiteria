@@ -18,7 +18,6 @@
         <li>
             <a href="{{ url_for('admin.reportes') }}"><i class="bi bi-bar-chart-fill"></i> Reportes</a>
         </li>
-        <!-- Sección de Perfil Activa -->
         <li class="active">
             <a href="{{ url_for('admin.perfil') }}"><i class="bi bi-person-circle"></i> Perfil</a>
         </li>
@@ -32,7 +31,6 @@
 
 <main class="main-content">
     <div class="row g-4 mt-2">
-        <!-- Tarjeta Informativa de Sesión -->
         <div class="col-md-4">
             <div class="card card-shadow p-4 bg-white text-center">
                 <div class="bg-primary-soft rounded-circle d-inline-flex p-3 mb-3" style="width: 80px; height: 80px; align-items: center; justify-content: center; margin: 0 auto;">
@@ -48,9 +46,7 @@
             </div>
         </div>
 
-        <!-- Bloques de Edición Operativa -->
         <div class="col-md-8">
-            <!-- Formulario Datos del Administrador -->
             <div class="card card-shadow p-4 bg-white mb-4">
                 <h5 class="section-title mb-3"><i class="bi bi-person-gear me-2 text-brand"></i>Editar Información Personal</h5>
                 <form id="formActualizarPerfil">
@@ -74,7 +70,6 @@
                 </form>
             </div>
 
-            <!-- Formulario Credenciales (Contraseña) -->
             <div class="card card-shadow p-4 bg-white">
                 <h5 class="section-title mb-3"><i class="bi bi-lock-fill me-2 text-brand"></i>Cambiar Contraseña de Acceso</h5>
                 <form id="formCambiarPassword">
@@ -102,7 +97,6 @@
 </main>
 
 <script>
-    // Procesamiento AJAX para los Datos Personales
     document.getElementById('formActualizarPerfil').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnGuardarDatos');
@@ -136,7 +130,6 @@
         });
     });
 
-    // Procesamiento AJAX para la Contraseña
     document.getElementById('formCambiarPassword').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnGuardarPass');
