@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo - Dulce Explosion{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+
+    <div class="section-title mb-3">
+        🍰 Catálogo de Productos
+    </div>
+
+    {% if productos and productos|length > 0 %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        {% for p in productos %}
+        <div class="col">
+            <div class="card card-shadow p-3">
+
+
+                <div class="img-placeholder mb-3">
+                    <i class="bi bi-cake2"></i><br>
+                    Imagen
+                </div>
+
+
+                <h5 class="text-brand">{{ p.producto }}</h5>
+
+
+                <p class="text-muted small">
+                    {{ p.descripcion }}
+                </p>
+
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-primary-soft text-brand">
+                        Bs. {{ p.precio }}
+                    </span>
+
+                    <button class="btn btn-brand btn-sm">
+                        <i class="bi bi-cart-plus"></i> Agregar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+
+    <div class="alert alert-info mt-4">
+        No hay productos disponibles aún.
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
