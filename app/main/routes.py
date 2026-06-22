@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required, current_user
 from app.main import main_bp
+
 from app.models import Producto
 from app.extensions import db, bcrypt
-
 
 
 @main_bp.route("/")
@@ -26,7 +26,9 @@ def administracion():
 @main_bp.route("/pedidos")
 @login_required
 def pedidos():
+
     return redirect(url_for("main.catalogo"))
+    return render_template("main/pedidos.html", usuario=current_user)
 
 @main_bp.route("/dashboard")
 @login_required

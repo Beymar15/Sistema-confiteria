@@ -72,5 +72,6 @@ class Imagen(db.Model):
             "id_imagen": self.id_imagen,
             "imagen": self.imagen,
             "id_producto": self.id_producto
+
         }
     
