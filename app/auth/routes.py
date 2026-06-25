@@ -32,7 +32,7 @@ def registro():
         else:
             flash(f"¡Bienvenido {nombre}! Tu cuenta ha sido creada exitosamente.", "success")
             return redirect(url_for("main.pedidos"))               
-
+    return render_template("auth/registro.html")
 
 
 @usuarios_bp.route("/login", methods=["GET", "POST"])
